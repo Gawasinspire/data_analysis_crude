@@ -41,4 +41,13 @@ typeof(data2$minutes)
 write.csv(data3, file = "foo.csv", row.names = FALSE)
 datas<-filter(data3, data3$working_day == "3")
 qplot(datas$Time,datas$close,geom = "auto")
-plot(datas$Time,datas$close,type="b")
+
+#plot(datas$Time,datas$close,type="b")
+for(i in 1:310){
+n<-paste(i)  
+datas<-filter(data3, data3$working_day == n) 
+nam <- paste("day",i,".jpg",sep ="")
+jpeg(nam)
+plot(datas$Time,datas$close,type="b", main = mytitle)
+dev.off()
+}
