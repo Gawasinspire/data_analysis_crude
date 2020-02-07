@@ -9,9 +9,10 @@ some_date <- data2$Date
 data2$date2 =day(as.POSIXlt(some_date,format="%Y.%m.%d"))
 data2$date2
 #write.csv(data2, file = "foo.csv", row.names = FALSE)
-set.seed(9)
+set.seed(12)
 a=1
 start_time <- Sys.time()
+
 for(i in 1:nrow(data2)){
 #print(data1$date2[i])
   if(data2$date2[i] !=  data2$date2[i+1]){a=a+1}
@@ -26,5 +27,18 @@ data2$minutes <- sapply(strsplit(as.character(data2$Time),":"), `[`, 2)
 data2$days <- weekdays(anytime::anydate(data2$Date))
 end_time <- Sys.time()
 end_time - start_time
-write.csv(data2, file = "foo.csv", row.names = FALSE)
-data2$date2[11]
+
+data3<- data2[41:nrow(data2),]
+head(data3)
+tail(data3)
+library(dplyr)
+#for(a in nrows(data3)/60){
+#    data4[a]= data3[1*a:60*a,]
+#}
+library(ggplot2)  
+
+typeof(data2$minutes)
+write.csv(data3, file = "foo.csv", row.names = FALSE)
+datas<-filter(data3, data3$working_day == "3")
+qplot(datas$Time,datas$close,geom = "auto")
+plot(datas$Time,datas$close,type="b")
