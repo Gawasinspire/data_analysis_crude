@@ -1,5 +1,6 @@
 library(lubridate)
-data0<-read.csv("DAT_MT_WTIUSD_M1_2011.csv")
+#data0<-read.csv("DAT_MT_WTIUSD_M1_2011.csv")
+
 a=0
 data1 = data0
 some_date = data1$Date
@@ -35,19 +36,29 @@ library(dplyr)
 #for(a in nrows(data3)/60){
 #    data4[a]= data3[1*a:60*a,]
 #}
-library(ggplot2)  
+
 
 typeof(data2$minutes)
 write.csv(data3, file = "foo.csv", row.names = FALSE)
 datas<-filter(data3, data3$working_day == "3")
 qplot(datas$Time,datas$close,geom = "auto")
 
+data6<-read.csv("foo.csv")
+getwd()
+setwd("/home/simple/data/git/data_analysis_crude/source/HISTDATA_COM_MT_WTIUSD_M12011/plots/")
+library(ggplot2)  
+library(dplyr)
 #plot(datas$Time,datas$close,type="b")
+start_time<-Sys.time()
 for(i in 1:310){
 n<-paste(i)  
-datas<-filter(data3, data3$working_day == n) 
+datas<-filter(data6, data6$working_day == n) 
 nam <- paste("day",i,".jpg",sep ="")
 jpeg(nam)
 plot(datas$Time,datas$close,type="b", main = mytitle)
 dev.off()
 }
+end_time<-Sys.time()
+print(end_time-start_time)
+
+setwd("/home/simple/data/git/data_analysis_crude/source/HISTDATA_COM_MT_WTIUSD_M12011/")
